@@ -20,12 +20,11 @@ const productSchema = z.object({
   skuId: z.string().optional(),
   price: z.number().min(0.01, { message: 'Price must be greater than 0' }),
   stockCount: z.number().min(0, { message: 'Stock count cannot be negative' }),
-  image: z.instanceof(FileList).optional().refine(
-    (files) => !files || files.length === 0 || Array.from(files).every(file => 
-      ['image/jpeg', 'image/png', 'image/jpg'].includes(file.type)
-    ),
-    { message: "Only .jpg, .jpeg, and .png files are accepted." }
-  )
+  // Using z.any() instead of z.instanceof(FileList) to avoid SSR issues
+  // FileList is only available in browser context and causes errors during SSR
+  image: z.any().optional()
+  // Client-side validation for file types can be added in the component
+  // for example, in the onChange handler of the file input
 });
 
 // Define form data type from schema
