@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --primary: #e992a3;
+  --primary-hover: #e57b8f;
+  --primary-light: #f8e1e5;
+  --primary-dark: #c76f80;
+  --text-on-primary: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --primary: #e992a3;
+    --primary-hover: #ec9eae;
+    --primary-light: #f5c3cb;
+    --primary-dark: #b86e7c;
+    --text-on-primary: #ffffff;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Theme override for Tailwind components */
+.bg-blue-500 { @apply bg-[#e992a3]; }
+.bg-blue-600 { @apply bg-[#e992a3]; }
+.bg-blue-700 { @apply bg-[#e57b8f]; }
+.hover\:bg-blue-500:hover { @apply hover:bg-[#e57b8f]; }
+.hover\:bg-blue-600:hover { @apply hover:bg-[#e57b8f]; }
+.hover\:bg-blue-700:hover { @apply hover:bg-[#d06f80]; }
+.text-blue-500 { @apply text-[#e992a3]; }
+.text-blue-600 { @apply text-[#e992a3]; }
+.text-blue-700 { @apply text-[#c76f80]; }
+
+/* Input and button focus styles */
+.focus\:border-blue-500:focus { @apply focus:border-[#e992a3]; }
+.focus\:ring-blue-500:focus { @apply focus:ring-[#e992a3]; }
+
+/* Custom utility classes */
+.btn-primary {
+  @apply bg-[#e992a3] text-white hover:bg-[#e57b8f] focus:ring-[#e992a3];
+}
+
+/* Custom components */
+.badge-primary {
+  @apply bg-[#f8e1e5] text-[#c76f80];
+}
+
+.link {
+  @apply text-[#e992a3] hover:text-[#c76f80] underline;
+}
+
+/* Product description formatting */
+.product-description,
+.product-description-preview {
+  @apply text-gray-600 text-sm leading-relaxed;
+}
+
+/* Specific styling for list previews */
+.product-description-preview {
+  @apply overflow-hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 2.75rem;
+}
+
+.product-description p {
+  @apply mb-3;
+}
+
+.product-description a {
+  @apply text-[#e992a3] hover:text-[#c76f80] underline;
+}
+
+.product-description ul,
+.product-description ol {
+  @apply pl-5 mb-3;
+}
+
+.product-description ul li {
+  @apply list-disc mb-1;
+}
+
+.product-description ol li {
+  @apply list-decimal mb-1;
+}
+
+.product-description br {
+  @apply block my-2;
+}
+
+
