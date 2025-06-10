@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { Sale } from '@/types';
 import Link from 'next/link';
 import { format, subDays, parseISO, startOfDay, endOfDay } from 'date-fns';
 
-export default function SalesPage() {
+// Component that uses useSearchParams needs to be wrapped in Suspense
+function SalesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
@@ -319,5 +320,16 @@ export default function SalesPage() {
         </div>
       )}
     </>
+  );
+}
+
+// Main component that wraps the content in a Suspense boundary
+export default function SalesPage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-[70vh]">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>}>
+      <SalesContent />
+    </Suspense>
   );
 }

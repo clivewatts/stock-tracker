@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import { formatCurrency } from '@/utils/currency';
@@ -19,7 +19,8 @@ const saleSchema = z.object({
 // Define form data type from schema
 type SaleFormData = z.infer<typeof saleSchema>;
 
-export default function CreateSalePage() {
+// Component that uses useSearchParams wrapped in Suspense
+function CreateSaleContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { status } = useSession();
@@ -390,5 +391,16 @@ export default function CreateSalePage() {
         </form>
       )}
     </div>
+  );
+}
+
+// Main component that wraps the content in a Suspense boundary
+export default function CreateSalePage() {
+  return (
+    <Suspense fallback={<div className="flex justify-center items-center min-h-[70vh]">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>}>
+      <CreateSaleContent />
+    </Suspense>
   );
 }
